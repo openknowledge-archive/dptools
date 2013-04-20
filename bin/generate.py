@@ -14,7 +14,7 @@ def extract(fileobj):
             'url': 'http://opendatacommons.org/licenses/pddl/1.0/'
         }]
     })
-    dp['files'] = [
+    dp['resources'] = [
             {
                 'schema': { 'fields': fields }
             }
@@ -23,7 +23,13 @@ def extract(fileobj):
     print out
 
 import sys
+import urllib2
 if __name__ == '__main__':
     url =  sys.argv[1]
-    extract(open(url))
+    if not ('http:' in url or 'https:' in url):
+        print 'here'
+        fo = open(url)
+    else:
+        fo = urllib2.urlopen(url)
+    extract(fo)
 

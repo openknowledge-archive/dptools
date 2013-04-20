@@ -36,14 +36,14 @@ def load(dpurlOrPath, sqlitePath):
     basepath = dpurlOrPath.rstrip('datapackage.json')
     dpfo = urllib2.urlopen(dpurl)
     out = json.load(dpfo)
-    for finfo in out['files']:
+    for finfo in out['resources']:
         # normalization so we do not have to handle both alternatives
         if not 'url' in finfo:
             finfo['url'] = urlparse.urljoin(dpurl, finfo['path'])
-        process_file(finfo, sqlitePath, dpurl)
+        process_resource(finfo, sqlitePath)
 
-def process_file(finfo, dbpath, dpurl):
-    '''Load the file specified by finfo into the database at dbpath
+def process_resource(finfo, dbpath):
+    '''Load the resource specified by finfo into the database at dbpath
     '''
     if 'name' in finfo:
         tablename = finfo['name']

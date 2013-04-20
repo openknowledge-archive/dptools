@@ -28,14 +28,14 @@ def load(dpurlOrPath):
         dpurl = dpurlOrPath
     dpfo = urllib2.urlopen(dpurl)
     out = json.load(dpfo)
-    for finfo in out['files']:
+    for finfo in out['resources']:
         # normalization so we do not have to handle both alternatives
         if not 'url' in finfo:
             finfo['url'] = urlparse.urljoin(dpurl, finfo['path'])
-        process_file(finfo)
+        process_resource(finfo)
 
-def process_file(finfo):
-    '''Load the file specified by finfo into the database at dbpath
+def process_resource(finfo):
+    '''Load the resource specified by finfo into the database at dbpath
     '''
     if 'name' in finfo:
         tablename = finfo['name']
