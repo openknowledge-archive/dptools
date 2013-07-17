@@ -19,7 +19,7 @@ mappings = {
     'string': 'text',
     'number': 'real',
     'float': 'real',
-    # integer: integer
+    'integer': 'integer',
     'date': 'string',
     'boolean': 'integer'
     }
@@ -76,13 +76,14 @@ def process_resource(finfo, dbpath):
 
 def path2url(path):
     return urlparse.urljoin(
-        'file:', urllib.pathname2url(path))
+        'file:', urllib.pathname2url(os.path.abspath(path))
+        )
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Load a data package into sqlite.')
     parser.add_argument('datapackage',
-                       help='an integer for the accumulator')
+                       help='path to datapackage')
     parser.add_argument('sqlite',
                        help='path to sqlite db')
     args = parser.parse_args() 
